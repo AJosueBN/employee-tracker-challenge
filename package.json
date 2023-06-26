@@ -1,0 +1,25 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "Creating an interface that allows the user to easily view and interact with information stored in databases. This will involve SQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AJosueBN",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "inquirer": "^8.2.4",
+    "mysql": "^2.18.1"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJosueBN/week-12-employee-tracker-challenge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AJosueBN/week-12-employee-tracker-challenge/issues"
+  },
+  "homepage": "https://github.com/AJosueBN/week-12-employee-tracker-challenge#readme"
+}
