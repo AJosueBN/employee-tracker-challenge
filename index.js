@@ -1,7 +1,21 @@
+const { response } = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql')
 const {MainMenuQuestions , AddDepartmentQuestions, AddEmployeeQuestions , AddRoleQuestions, UpdateEmployeeRoleQuestions};
 
+const db = mysql.createConnection(
+    {
+      host: 'localhost',
+      // MySQL username,
+      user: 'root',
+      //  MySQL password
+      password: 'granted123',
+      database: 'employees_db'
+    },
+    console.log(`Connected to the employees_db database.`)
+  );
+
+  db.connect();
 
 const doMenuQuestions = () => {
 
@@ -31,5 +45,14 @@ const doMenuQuestions = () => {
             break;
             
         }
+    })
+}
+
+const add_department = () => {
+    inquirer.prompt(AddDepartmentQuestions)
+    .then((response) => {
+        db.addDepartment(response).then((results) => {
+            doMenuQuestions();
+        })
     })
 }
