@@ -148,7 +148,11 @@ const add_employee = async () => {
             type: 'list',
             name: 'manager_id',
             message: "Select the Employee\'s MANAGER:  ",
-            choices: employee.map(({id , manager_id}) ),
+            choices: role.map(({id , first_name , last_name }) => {
+                 return {
+                    value:id,first_name,last_name
+                 }
+            }),
         },
     ])
     .then(async (response) => {
