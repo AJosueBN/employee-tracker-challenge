@@ -1,7 +1,7 @@
-const { response } = require('express');
 const inquirer = require('inquirer');
-const mysql = require('mysql')
-const {MainMenuQuestions , AddDepartmentQuestions, AddEmployeeQuestions , AddRoleQuestions, UpdateEmployeeRoleQuestions};
+const mysql = require('mysql2')
+const {MainMenuQuestions , AddDepartmentQuestions, AddEmployeeQuestions , AddRoleQuestions, UpdateEmployeeRoleQuestions} = require('./questions');
+require('console.table')
 
 const db = mysql.createConnection(
     {
@@ -47,12 +47,115 @@ const doMenuQuestions = () => {
         }
     })
 }
+const view_departments = async () => {
+    
+       const [department] = await db.promise().query(`SELECT * FROM department`)
 
-const add_department = () => {
+       console.table(department)
+       doMenuQuestions();
+   
+}
+
+const add_department =  () => {
     inquirer.prompt(AddDepartmentQuestions)
-    .then((response) => {
-        db.addDepartment(response).then((results) => {
-            doMenuQuestions();
-        })
+    .then(async (response) => {
+       const [department] = await db.promise().query(`Insert into department (name) values('${response.department_name}')`)
+
+       view_departments()
     })
 }
+
+const view_roles = async () => {
+    
+    const [role] = await db.promise().query(`SELECT * FROM role`)
+
+    console.table(role)
+    doMenuQuestions();
+
+}
+
+const add_role = async () => {
+    const [department] = await db.promise().query(`SELECT * FROM department`)
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'Enter TITLE for the new Role:  '
+        },
+        {
+            type: 'number', name: 'salary' , message: 'Enter salary for the New Role: (numbers only) ',
+            validate: function (value) {
+                const valid = !isNaN(parseInt(value));
+                return valid || 'ENTER numbers only!';
+            }
+        },
+        {
+            type: 'list',
+            name: 'department_id',
+            message: 'Select the DEPARTMENT for the Role:  ',
+            choices: department.map(({id,name}) => {
+                return {
+                    value:id,name
+            
+                }
+            }),
+        },
+    ]
+    )
+    .then(async (response) => {
+       const [role] = await db.promise().query(`Insert into role (title, salary, department_id) values('${response.title}',${response.salary},${response.department_id})`)
+
+       view_roles();
+    })
+}
+
+const view_employees = async () => {
+    
+    const [employee] = await db.promise().query(`SELECT * FROM employee`)
+
+    console.table(employee)
+    doMenuQuestions();
+
+    
+}
+
+const add_employee = async () => {
+    const [role] = await db.promise().query(`SELECT * FROM role`)
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'first_name',
+            message: 'Enter FIRST name of the Employee:  '
+        },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'Enter LAST name of the Employee:  '
+        },
+        {
+            type: 'list',
+            name: 'role_id',
+            message: 'Select ROLE for the Employee:  ',
+            choices: role.map(({id , title , salary , department_id }) => {
+                return {
+                    value:id,title,salary,department_id
+                }
+            }),
+        },
+        {
+            type: 'list',
+            name: 'manager_id',
+            message: "Select the Employee\'s MANAGER:  ",
+            choices: employee.map(({id , manager_id}) ),
+        },
+    ])
+    .then(async (response) => {
+       const [role] = await db.promise().query(`Insert into employee role (first_name, last_name, role_id) values('${response.first_name}',${response.last_name},${response.role_id})`)
+
+       view_employees();
+    })
+}
+
+doMenuQuestions();
