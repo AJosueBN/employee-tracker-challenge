@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2')
 const {MainMenuQuestions , AddDepartmentQuestions, AddEmployeeQuestions , AddRoleQuestions, UpdateEmployeeRoleQuestions} = require('./questions');
+const { response } = require('express');
 require('console.table')
 
 const db = mysql.createConnection(
@@ -110,6 +111,17 @@ const add_role = async () => {
     })
 }
 
+const update_role = async () => {
+    const [role] = await db.promise().query(`UPDATE roles FROM employees_db.role`)
+     
+    inquirer.prompt(UpdateEmployeeRoleQuestions)
+    .then(async (response) => {
+        const [role] = await db.promise().query(`SELECT * FROM into role (name) values('${response.role_title}')`)
+ 
+        update_role()
+     })
+}
+
 const view_employees = async () => {
     
     const [employee] = await db.promise().query(`SELECT * FROM employee`)
@@ -117,7 +129,6 @@ const view_employees = async () => {
     console.table(employee)
     doMenuQuestions();
 
-    
 }
 
 const add_employee = async () => {
@@ -162,4 +173,5 @@ const add_employee = async () => {
     })
 }
 
+      
 doMenuQuestions();
