@@ -133,6 +133,7 @@ const view_employees = async () => {
 
 const add_employee = async () => {
     const [role] = await db.promise().query(`SELECT * FROM role`)
+    const [employee]=await db.promise().query(`SELECT * FROM employee`)
 
     inquirer.prompt([
         {
@@ -149,9 +150,10 @@ const add_employee = async () => {
             type: 'list',
             name: 'role_id',
             message: 'Select ROLE for the Employee:  ',
-            choices: role.map(({id , title , salary , department_id }) => {
+            choices: role.map(({id , title }) => {
                 return {
-                    value:id,title,salary,department_id
+                    name: title,
+                    value:id,
                 }
             }),
         },
@@ -159,19 +161,20 @@ const add_employee = async () => {
             type: 'list',
             name: 'manager_id',
             message: "Select the Employee\'s MANAGER:  ",
-            choices: role.map(({id , first_name , last_name }) => {
+            choices: employee.map(({id , first_name , last_name }) => {
                  return {
-                    value:id,first_name,last_name
+                    name: `${first_name}  ${last_name}`,
+                    value:id
                  }
             }),
         },
     ])
     .then(async (response) => {
-       const [role] = await db.promise().query(`Insert into employee role (first_name, last_name, role_id) values('${response.first_name}',${response.last_name},${response.role_id})`)
+       const [employee] = await db.promise().query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES('${response.first_name}','${response.last_name}',${response.role_id}, ${response.manager_id})`)
 
        view_employees();
     })
 }
 
-      
+
 doMenuQuestions();
