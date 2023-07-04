@@ -24,5 +24,6 @@ Creating an interface that allows the user to easily view and interact with info
 
 # Screenshot of prompted inquiries:
 
+![Screenshot 2023-07-04 164054](https://github.com/AJosueBN/week-12-employee-tracker-challenge/assets/129113539/043a4514-89c5-48e3-96fc-6c8edc43a727)
 
 
