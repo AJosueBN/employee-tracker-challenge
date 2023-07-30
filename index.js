@@ -2,7 +2,8 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2')
 const { MainMenuQuestions, AddDepartmentQuestions, AddEmployeeQuestions, AddRoleQuestions, UpdateEmployeeRoleQuestions } = require('./questions');
 const { response } = require('express');
-require('console.table')
+require('console.table');
+require('dotenv').config();
 
 const db = mysql.createConnection(
     {
@@ -10,8 +11,8 @@ const db = mysql.createConnection(
         // MySQL username,
         user: 'root',
         //  MySQL password
-        password: 'granted123',
-        database: 'employees_db'
+        password: process.env.DB_PASSWORD,
+        database: 'employees_db',
     },
     console.log(`Connected to the employees_db database.`)
 );

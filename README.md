@@ -16,8 +16,9 @@ Creating an interface that allows the user to easily view and interact with info
 - WHEN the user chooses to update an employee's role, they are prompted to select any employee from the database to update along with their new role and this new information is then added into the database
 
 
-# Screenshot of prompted inquiries:
+# Video with functionality of making an Employee Tracker:
 
-![Screenshot 2023-07-04 164054](https://github.com/AJosueBN/week-12-employee-tracker-challenge/assets/129113539/043a4514-89c5-48e3-96fc-6c8edc43a727)
+
+
 
 
