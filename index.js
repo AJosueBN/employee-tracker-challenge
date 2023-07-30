@@ -130,7 +130,7 @@ const update_role = async () => {
             .then(empChoice => {
                 const employee = empChoice.name;
                 const params = [];
-                params.push(employee); // => params = ["Bruce Payne"]
+                params.push(employee); // => params = e.g. ["Bruce Payne"]
 
                 db.query(`SELECT * FROM role`, (err, data) => {
                     if (err) throw err;
@@ -152,7 +152,7 @@ const update_role = async () => {
                             let employee = params[0]
                             params[0] = role
                             params[1] = employee
-                            // params = ["Web Developer" = id:2, "Bruce Payne" = id:3]
+                            // params = e.g.["Web Developer" = id:2, "Bruce Payne" = id:3]
 
                             db.query(`UPDATE employee SET role_id = ? WHERE id = ?`, params, (err, result) => {
                                 if (err) throw err;
