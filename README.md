@@ -1,3 +1,5 @@
+
+https://github.com/AJosueBN/week-12-employee-tracker-challenge/assets/129113539/b042fa1a-083f-4561-8660-ad38c08c198d
 # week-12-employee-tracker-challenge
 
 Creating an interface that allows the user to easily view and interact with information stored in databases within the content management systems(CMS) and building it from the command-line/terminal e.g storing a company's employee database.
@@ -17,6 +19,13 @@ Creating an interface that allows the user to easily view and interact with info
 
 
 # Video with functionality of making an Employee Tracker:
+
+https://github.com/AJosueBN/week-12-employee-tracker-challenge/assets/129113539/fa2bb68c-3e88-40f7-8f41-7a87e5e8ef87
+
+
+
+
+
 
 
 
